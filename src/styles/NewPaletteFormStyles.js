@@ -1,4 +1,5 @@
 import { DRAWER_WIDTH } from '../constants';
+import sizes from './sizes';
 
 const drawerWidth = DRAWER_WIDTH;
 
@@ -27,7 +28,10 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    [sizes.down('xxs')]: {
+      width: '100%'
+    }
   },
   drawerHeader: {
     display: 'flex',
