@@ -115,7 +115,7 @@ class PaletteList extends Component {
             </a>{' '}
             |{' '}
             <a
-              href="https://github.com/MarkoMihajlovicGit/React/tree/master/Colt/colors-palette-app"
+              href="https://github.com/MarkoMihajlovicGit/mmcolors-generator"
               rel="noopener noreferrer"
               target="_blank"
             >
