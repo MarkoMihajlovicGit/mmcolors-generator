@@ -50,6 +50,8 @@ class App extends Component {
   };
 
   render() {
+    const { palettes } = this.state;
+    const { findPalette, savePalette, deletePalette } = this;
     return (
       <Route
         render={({ location }) => (
@@ -62,9 +64,9 @@ class App extends Component {
                   render={routeProps => (
                     <Page>
                       <NewPaletteForm
-                        savePalette={this.savePalette}
+                        savePalette={savePalette}
                         {...routeProps}
-                        palettes={this.state.palettes}
+                        palettes={palettes}
                       ></NewPaletteForm>
                     </Page>
                   )}
@@ -75,8 +77,8 @@ class App extends Component {
                   render={routeProps => (
                     <Page>
                       <PaletteList
-                        palettes={this.state.palettes}
-                        deletePalette={this.deletePalette}
+                        palettes={palettes}
+                        deletePalette={deletePalette}
                         {...routeProps}
                       ></PaletteList>
                     </Page>
@@ -89,7 +91,7 @@ class App extends Component {
                     <Page>
                       <Palette
                         palette={generatePalette(
-                          this.findPalette(routeProps.match.params.id)
+                          findPalette(routeProps.match.params.id)
                         )}
                       />
                     </Page>
@@ -103,7 +105,7 @@ class App extends Component {
                       <SingleColorPalette
                         colorId={routeProps.match.params.colorId}
                         palette={generatePalette(
-                          this.findPalette(routeProps.match.params.paletteId)
+                          findPalette(routeProps.match.params.paletteId)
                         )}
                       />
                     </Page>
@@ -113,8 +115,8 @@ class App extends Component {
                   render={routeProps => (
                     <Page>
                       <PaletteList
-                        palettes={this.state.palettes}
-                        deletePalette={this.deletePalette}
+                        palettes={palettes}
+                        deletePalette={deletePalette}
                         {...routeProps}
                       ></PaletteList>
                     </Page>

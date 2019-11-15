@@ -48,58 +48,82 @@ class PaletteList extends Component {
     const { palettes, classes } = this.props;
     const { openDeleteDialog } = this.state;
     return (
-      <div className={classes.root}>
-        <div className={classes.container}>
-          <nav className={classes.nav}>
-            <h1 className={classes.heading}>React Colors</h1>
-            {/* create new pallete goes here */}
-            <Link to="/palette/new">Create Palette</Link>
-          </nav>
+      <>
+        <div className={classes.root}>
+          <div className={classes.container}>
+            <nav className={classes.nav}>
+              <h1 className={classes.heading}>React Colors</h1>
+              {/* create new pallete goes here */}
+              <Link to="/palette/new">Create Palette</Link>
+            </nav>
 
-          <TransitionGroup className={classes.palettes}>
-            {palettes.map(palette => (
-              <CSSTransition key={palette.id} classNames="fade" timeout={500}>
-                <MiniPalette
-                  {...palette}
-                  key={palette.id}
-                  id={palette.id}
-                  handleClick={this.goToPalette}
-                  openDialog={this.openDialog}
-                ></MiniPalette>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
+            <TransitionGroup className={classes.palettes}>
+              {palettes.map(palette => (
+                <CSSTransition key={palette.id} classNames="fade" timeout={500}>
+                  <MiniPalette
+                    {...palette}
+                    key={palette.id}
+                    id={palette.id}
+                    handleClick={this.goToPalette}
+                    openDialog={this.openDialog}
+                  ></MiniPalette>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
+          </div>
+          <Dialog
+            open={openDeleteDialog}
+            aria-labelledby="delete-dialog-title"
+            onClose={this.closeDialog}
+          >
+            <DialogTitle id="delete-dialog-title">
+              Delete This Palette
+            </DialogTitle>
+            <List>
+              <ListItem button onClick={this.handleDelete}>
+                <ListItemAvatar>
+                  <Avatar
+                    style={{ backgroundColor: blue[100], color: blue[600] }}
+                  >
+                    <CheckIcon></CheckIcon>
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>Delete</ListItemText>
+              </ListItem>
+              <ListItem button onClick={this.closeDialog}>
+                <ListItemAvatar>
+                  <Avatar
+                    style={{ backgroundColor: red[100], color: red[600] }}
+                  >
+                    <ClearIcon></ClearIcon>
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>Cancel</ListItemText>
+              </ListItem>
+            </List>
+          </Dialog>
         </div>
-        <Dialog
-          open={openDeleteDialog}
-          aria-labelledby="delete-dialog-title"
-          onClose={this.closeDialog}
-        >
-          <DialogTitle id="delete-dialog-title">
-            Delete This Palette
-          </DialogTitle>
-          <List>
-            <ListItem button onClick={this.handleDelete}>
-              <ListItemAvatar>
-                <Avatar
-                  style={{ backgroundColor: blue[100], color: blue[600] }}
-                >
-                  <CheckIcon></CheckIcon>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText>Delete</ListItemText>
-            </ListItem>
-            <ListItem button onClick={this.closeDialog}>
-              <ListItemAvatar>
-                <Avatar style={{ backgroundColor: red[100], color: red[600] }}>
-                  <ClearIcon></ClearIcon>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText>Cancel</ListItemText>
-            </ListItem>
-          </List>
-        </Dialog>
-      </div>
+        <footer className={classes.footer}>
+          <span>
+            Adapted by{' '}
+            <a
+              href="https://github.com/MarkoMihajlovicGit"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Marko Mihajlovic
+            </a>{' '}
+            |{' '}
+            <a
+              href="https://github.com/MarkoMihajlovicGit/React/tree/master/Colt/colors-palette-app"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Source code
+            </a>
+          </span>
+        </footer>
+      </>
     );
   }
 }
