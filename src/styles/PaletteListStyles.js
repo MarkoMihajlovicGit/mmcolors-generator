@@ -17,8 +17,7 @@ export default {
     flexWrap: 'nowrap',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    backgroundColor: '#3a2a7e',
-
+    backgroundColor: '#76ced7',
     backgroundImage: `url(${bg})`,
     overflow: 'auto'
   },
