@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import useToggle from './hooks/useToggle';
+import React from 'react';
+import useColorsState from './hooks/useColorsState';
 import classNames from 'classnames';
-import arrayMove from 'array-move';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -12,69 +11,24 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 import DraggableColorList from './DraggableColorList';
-import seedColors from './seedColors';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm(props) {
   const maxColors = 20;
-  const handleDrawerOpen = () => {
-    setToggle({ open: true });
-  };
 
-  const handleDrawerClose = () => {
-    setToggle({ open: false });
-  };
-
-  const addNewColor = newColor => {
-    setColors([...colors, newColor]);
-  };
-
-  const handleSubmit = newPalette => {
-    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-');
-    newPalette.colors = colors;
-    props.savePalette(newPalette);
-    //redirect
-    props.history.push('/');
-  };
-
-  const removeColor = colorName => {
-    setColors(colors.filter(color => color.name !== colorName));
-  };
-
-  const onSortEnd = ({ oldIndex, newIndex }) => {
-    const movedColors = arrayMove(colors, oldIndex, newIndex);
-    setColors(movedColors);
-  };
-
-  const clearColors = () => {
-    setColors([]);
-  };
-  const addRandomColor = () => {
-    const getColor = () => {
-      const randomPaletteIndex = Math.floor(Math.random() * seedColors.length);
-      const randomPalette = seedColors[randomPaletteIndex];
-      const randomColorIndex = Math.floor(
-        Math.random() * randomPalette.colors.length
-      );
-      return randomPalette.colors[randomColorIndex];
-    };
-
-    const validateColor = color => {
-      const colorsToCheck = colors;
-      while (colorsToCheck.includes(color)) {
-        console.log('Found DUPLICATE : ', color);
-        color = getColor();
-        console.log('NEW COLOR IS: ', color);
-      }
-      return color;
-    };
-    const validatedColor = validateColor(getColor());
-    setColors([...colors, validatedColor]);
-  };
-
+  const {
+    open,
+    colors,
+    handleDrawerOpen,
+    handleDrawerClose,
+    addNewColor,
+    handleSubmit,
+    removeColor,
+    onSortEnd,
+    clearColors,
+    addRandomColor
+  } = useColorsState(props);
   const { classes, palettes } = props;
-  const [open, setToggle] = useToggle(true);
-  const [colors, setColors] = useState(seedColors[0].colors);
   const paletteIsFull = colors.length >= maxColors;
   return (
     <div className={classes.root}>
