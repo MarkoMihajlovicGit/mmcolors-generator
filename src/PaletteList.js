@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import usePaletteListState from './hooks/usePaletteListState';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
@@ -19,7 +19,11 @@ import blue from '@material-ui/core/colors/blue';
 import MiniPalette from './MiniPalette';
 import styles from './styles/PaletteListStyles';
 
-function PaletteList(props) {
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.palettes === nextProps.palettes;
+};
+
+const PaletteList = memo(props => {
   const {
     openDeleteDialog,
     openDialog,
@@ -28,6 +32,7 @@ function PaletteList(props) {
     handleDelete
   } = usePaletteListState(props);
   const { palettes, classes } = props;
+  console.log('PALETTE LIST RENDER');
 
   return (
     <>
@@ -105,6 +110,6 @@ function PaletteList(props) {
       </footer>
     </>
   );
-}
+}, areEqual);
 
 export default withStyles(styles)(PaletteList);
