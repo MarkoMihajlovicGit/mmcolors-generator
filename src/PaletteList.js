@@ -32,7 +32,6 @@ const PaletteList = memo(props => {
     handleDelete
   } = usePaletteListState(props);
   const { palettes, classes } = props;
-  console.log('PALETTE LIST RENDER');
 
   return (
     <>
